@@ -4,13 +4,22 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.Chronometer
+import android.widget.DatePicker
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.ImageView
-
+import android.widget.RadioGroup
+import android.widget.RatingBar
+import android.widget.SeekBar
+import android.widget.Switch
+import android.widget.TextView
+import android.widget.TimePicker
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +32,30 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
         val zdjecie: ImageView = findViewById(R.id.zdjecie)
+        val imie = findViewById<TextView>(R.id.imie)
+        val wybranaRasa = findViewById<Spinner>(R.id.spinner)
+        val dzien = findViewById<DatePicker>(R.id.dzien)
+        val godzina = findViewById<TimePicker>(R.id.godzina)
+        val switch = findViewById<Switch>(R.id.sciezki)
+
+        val checkbox1 = findViewById<CheckBox>(R.id.cb1)
+        val checkbox2 = findViewById<CheckBox>(R.id.cb2)
+        val checkbox3 = findViewById<CheckBox>(R.id.cb3)
+
+        val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
+        val selectedId = radioGroup.checkedRadioButtonId
+
+        val poziom = findViewById<SeekBar>(R.id.poziom)
+
+        val timer = findViewById<Chronometer>(R.id.myChronometer)
+        val czas = timer.text.toString()
+
+        val ocena = findViewById<RatingBar>(R.id.ocena)
+
+
 
         val spinner: Spinner = findViewById(R.id.spinner)
         val rasa = arrayOf("hobbit", "człowiek", "elf", "krasnolud", "czarodziej")
@@ -47,6 +79,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
+
         }
     }
 }

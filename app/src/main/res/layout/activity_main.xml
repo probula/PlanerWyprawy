@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Podaj imię bohatera"/>
+            android:text="Podaj imię bohatera"
+            android:id="@+id/imie"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -62,10 +63,12 @@
             android:layout_height="wrap_content"
             android:text="Tajne ścieżki elfów"
             android:layout_gravity="center"/>
+
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:id="@+id/sciezki"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +103,8 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:id="@+id/radioGroup">
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +128,7 @@
             android:progressTint="#fed766"
             android:progressBackgroundTint="#2ab7ca"
             android:thumbTint="#fe4a49"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
         <Chronometer
             android:id="@+id/myChronometer"
             android:layout_width="wrap_content"
@@ -135,9 +139,10 @@
             android:textColor="#fe4a49"
             android:textStyle="bold"/>
         <RatingBar
+            android:id="@+id/ocena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_gravity="center"/>
+            android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
