@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Chronometer
 import android.widget.DatePicker
@@ -55,6 +56,11 @@ class MainActivity : AppCompatActivity() {
 
         val ocena = findViewById<RatingBar>(R.id.ocena)
 
+        val przycisk = findViewById<Button>(R.id.klik)
+        val podsumowanie = findViewById<TextView>(R.id.podsumowanie)
+
+
+
 
 
         val spinner: Spinner = findViewById(R.id.spinner)
@@ -81,5 +87,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        przycisk.setOnClickListener {
+
+        }
+
     }
 }
