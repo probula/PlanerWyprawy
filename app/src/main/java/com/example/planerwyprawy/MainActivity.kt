@@ -87,9 +87,31 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        przycisk.setOnClickListener {
+        val seekBar = findViewById<SeekBar>(R.id.poziom)
+        val pokazSB = findViewById<TextView>(R.id.poziomPokaz)
 
-        }
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                pokazSB.text = "Czas marszu: $progress min"
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                //Toast.makeText(this@MainActivity, "Zacząłeś przesuwać suwak", Toast.LENGTH_SHORT).show()
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                //Toast.makeText(this@MainActivity, "Zakończyłeś przesuwanie suwaka", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+        var pokazwyjscie = findViewById<TextView>(R.id.infowyjscie)
+        godzina.setOnTimeChangedListener { _, hourOfDay, minute ->
+          val day = dzien.dayOfMonth
+          val month = dzien.month + 1
+          val year = dzien.year
+
+          pokazwyjscie.text = "Wyruszasz: $day/$month/$year o $hourOfDay:$minute"
+      }
+
 
     }
 }

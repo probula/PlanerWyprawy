@@ -60,6 +60,12 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/infowyjscie"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tajne ścieżki elfów"
             android:layout_gravity="center"/>
@@ -123,12 +129,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:min="1"
-            android:max="10"
+            android:max="120"
             android:progress="5"
             android:progressTint="#fed766"
             android:progressBackgroundTint="#2ab7ca"
             android:thumbTint="#fe4a49"
             android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/poziomPokaz"
+            android:layout_gravity="center"/>
         <Chronometer
             android:id="@+id/myChronometer"
             android:layout_width="wrap_content"
