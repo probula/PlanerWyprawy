@@ -1,6 +1,7 @@
 package com.example.planerwyprawy
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -45,6 +46,14 @@ class MainActivity : AppCompatActivity() {
         val checkbox1 = findViewById<CheckBox>(R.id.cb1)
         val checkbox2 = findViewById<CheckBox>(R.id.cb2)
         val checkbox3 = findViewById<CheckBox>(R.id.cb3)
+
+        var selectedText: String? = null
+
+        when {
+            checkbox1.isChecked -> selectedText = checkbox1.text.toString()
+            checkbox2.isChecked -> selectedText = checkbox2.text.toString()
+            checkbox3.isChecked -> selectedText = checkbox3.text.toString()
+        }
 
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val selectedId = radioGroup.checkedRadioButtonId
@@ -112,6 +121,37 @@ class MainActivity : AppCompatActivity() {
           pokazwyjscie.text = "Wyruszasz: $day/$month/$year o $hourOfDay:$minute"
       }
 
+
+        var running = false;
+        var pauseOffset: Long = 0
+        val chronometer: Chronometer = findViewById(R.id.myChronometer)
+
+        chronometer.base = SystemClock.elapsedRealtime()
+        val start = findViewById<Button>(R.id.startBT)
+        val stop = findViewById<Button>(R.id.stopBT)
+        start.setOnClickListener {
+            chronometer.base = SystemClock.elapsedRealtime() - pauseOffset
+            chronometer.start()
+            running = true
+        }
+        stop.setOnClickListener{
+            chronometer.stop()
+        }
+
+        przycisk.setOnClickListener {
+
+            godzina.setOnTimeChangedListener { _, hourOfDay, minute ->
+                val day = dzien.dayOfMonth
+                val month = dzien.month + 1
+                val year = dzien.year
+
+                pokazwyjscie.text = "Wyruszasz: $day/$month/$year o $hourOfDay:$minute"
+
+                podsumowanie.text =
+                    "Bohater: $imie ($wybranaRasa), Priorytet: $selectedId, Wyposażenie: $selectedText, " +
+                            "Czas marszu: $chronometer, Morale: $ocena, Termin: $day/$month/$year o $hourOfDay:$minute"
+            }
+        }
 
     }
 }

@@ -149,6 +149,19 @@
             android:layout_gravity="center"
             android:textColor="#fe4a49"
             android:textStyle="bold"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="start"
+            android:id="@+id/startBT"/>
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="stop"
+        android:id="@+id/stopBT"/>
+
         <RatingBar
             android:id="@+id/ocena"
             android:layout_width="wrap_content"
