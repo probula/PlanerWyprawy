@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:width="500px"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:id="@+id/imieEdit"/>
 
         <Spinner
             android:layout_width="match_parent"
@@ -167,15 +168,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:max="30"
+            android:progress="0"
+            android:layout_margin="16dp"
+            android:indeterminate="false"
+            style="?android:attr/progressBarStyleHorizontal"/>
+        <Button
+            android:id="@+id/countdownBT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Odliczanie do wymarszu"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Podsumowanie"
-            android:id="@+id/klik"/>
+            android:id="@+id/klik"
+            android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/podsumowanie"/>
+            android:id="@+id/podsumowanie"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 </ScrollView>

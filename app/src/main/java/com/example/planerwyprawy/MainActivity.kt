@@ -1,6 +1,8 @@
 package com.example.planerwyprawy
 
+import android.content.IntentSender
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.SystemClock
 import android.view.View
 import android.widget.AdapterView
@@ -9,12 +11,15 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Chronometer
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.RatingBar
 import android.widget.SeekBar
@@ -47,13 +52,18 @@ class MainActivity : AppCompatActivity() {
         val checkbox2 = findViewById<CheckBox>(R.id.cb2)
         val checkbox3 = findViewById<CheckBox>(R.id.cb3)
 
-        var selectedText: String? = null
+//        var selectedText: String? = null
+//
+//        when {
+//            checkbox1.isChecked -> selectedText = checkbox1.text.toString()
+//            checkbox2.isChecked -> selectedText = checkbox2.text.toString()
+//            checkbox3.isChecked -> selectedText = checkbox3.text.toString()
+//        }
 
-        when {
-            checkbox1.isChecked -> selectedText = checkbox1.text.toString()
-            checkbox2.isChecked -> selectedText = checkbox2.text.toString()
-            checkbox3.isChecked -> selectedText = checkbox3.text.toString()
-        }
+        var selectedText = ""
+        if (checkbox1.isChecked) selectedText += "${checkbox1.text} "
+        if (checkbox2.isChecked) selectedText += "${checkbox2.text} "
+        if (checkbox3.isChecked) selectedText += "${checkbox3.text} "
 
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val selectedId = radioGroup.checkedRadioButtonId
@@ -69,7 +79,27 @@ class MainActivity : AppCompatActivity() {
         val podsumowanie = findViewById<TextView>(R.id.podsumowanie)
 
 
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val countdownBT = findViewById<Button>(R.id.countdownBT)
+        var countDownTimer: CountDownTimer? = null
+        val czasOdliczanie = 60
+        progressBar.max = czasOdliczanie
+        countdownBT.setOnClickListener {
+            progressBar.progress = 0
+            countDownTimer?.cancel()
 
+            countDownTimer = object : CountDownTimer(czasOdliczanie * 1000L, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val progress = ((czasOdliczanie * 1000L - millisUntilFinished) / 1000).toInt()
+                    progressBar.progress = progress
+                }
+
+                override fun onFinish() {
+                    progressBar.progress = czasOdliczanie
+                    Toast.makeText(this@MainActivity, "Czas na wymarsz!", Toast.LENGTH_SHORT).show()
+                }
+            }.start()
+        }
 
 
         val spinner: Spinner = findViewById(R.id.spinner)
@@ -125,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         var running = false;
         var pauseOffset: Long = 0
         val chronometer: Chronometer = findViewById(R.id.myChronometer)
+        val czasMarszu = (SystemClock.elapsedRealtime() - chronometer.base) / 1000
 
         chronometer.base = SystemClock.elapsedRealtime()
         val start = findViewById<Button>(R.id.startBT)
@@ -138,19 +169,47 @@ class MainActivity : AppCompatActivity() {
             chronometer.stop()
         }
 
+        val imieEdit = findViewById<EditText>(R.id.imieEdit)
+
         przycisk.setOnClickListener {
+            // Imię bohatera
+            val imieText = imieEdit.text.toString()
 
-            godzina.setOnTimeChangedListener { _, hourOfDay, minute ->
-                val day = dzien.dayOfMonth
-                val month = dzien.month + 1
-                val year = dzien.year
+            // Wybrana rasa
+            val rasaText = wybranaRasa.selectedItem.toString()
 
-                pokazwyjscie.text = "Wyruszasz: $day/$month/$year o $hourOfDay:$minute"
+            // Wyposażenie
+            val selectedCheckBoxes = mutableListOf<String>()
+            if (checkbox1.isChecked) selectedCheckBoxes.add(checkbox1.text.toString())
+            if (checkbox2.isChecked) selectedCheckBoxes.add(checkbox2.text.toString())
+            if (checkbox3.isChecked) selectedCheckBoxes.add(checkbox3.text.toString())
+            val wyposazenie = selectedCheckBoxes.joinToString(", ")
 
-                podsumowanie.text =
-                    "Bohater: $imie ($wybranaRasa), Priorytet: $selectedId, Wyposażenie: $selectedText, " +
-                            "Czas marszu: $chronometer, Morale: $ocena, Termin: $day/$month/$year o $hourOfDay:$minute"
-            }
+            // Priorytet
+            val priorytetRadio = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+            val priorytet = priorytetRadio?.text ?: "Nie wybrano"
+
+            // Czas marszu w sekundach
+            val czasMarszuSek = (SystemClock.elapsedRealtime() - chronometer.base) / 1000
+
+            // Termin wyprawy
+            val day = dzien.dayOfMonth
+            val month = dzien.month + 1
+            val year = dzien.year
+            val hour = godzina.hour
+            val minute = godzina.minute
+
+            // Morale drużyny
+            val morale = ocena.rating
+
+            // Wyświetlenie podsumowania
+            podsumowanie.text =
+                "Bohater: $imieText ($rasaText)\n" +
+                        "Priorytet: $priorytet\n" +
+                        "Wyposażenie: $wyposazenie\n" +
+                        "Czas marszu: $czasMarszuSek s\n" +
+                        "Morale: $morale/5\n" +
+                        "Termin: $day/$month/$year o $hour:$minute"
         }
 
     }
